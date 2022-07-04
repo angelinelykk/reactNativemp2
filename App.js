@@ -1,11 +1,12 @@
 // App.js is the entry point of our application.
 import React from "react";
 import "react-native-gesture-handler";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, StackActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import MovieListScreen from "./screens/MovieListScreen/MovieListScreen.main";
 import MovieDetailScreen from "./screens/MovieDetailScreen/MovieDetailScreen.main";
 import MovieFilterScreen from "./screens/MovieFilterScreen/MovieFilterScreen.main";
+import { Button } from "react-native-elements";
 
 /* TODO: 
 
@@ -21,6 +22,44 @@ import MovieFilterScreen from "./screens/MovieFilterScreen/MovieFilterScreen.mai
   Read the example carefully to set up this app's screen heirarchy in a similar manner.
 
   https://reactnavigation.org/docs/modal */
+
+  /*Create Stack Navigator for Screens*/
+const Stack = createStackNavigator();
+const StackOptions = { headerTitleStyle: { fontFamily: "Avenir" } };
+const withButton = {
+  headerTitleStyle: { fontFamily: "Avenir" },
+  headerRight:()=>(
+    <Button title = "count"
+    onPress={()=>{alert("Hello")}}
+    />
+  )
+}
+
+
 export default function App() {
-  return <NavigationContainer>{}</NavigationContainer>;
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Group>
+          <Stack.Screen
+            options={StackOptions}
+            name="Movie List Screen"
+            component={MovieListScreen}
+          />
+          <Stack.Screen
+            options={StackOptions}
+            name="Movie Detail Screen"
+            component={MovieDetailScreen}
+          />
+        </Stack.Group>
+        <Stack.Group screenOptions={{ presentation: 'modal' }}>
+          <Stack.Screen
+            options={StackOptions}
+            name="Movie Filter Screen"
+            component={MovieFilterScreen}
+          />
+        </Stack.Group>
+      </Stack.Navigator>
+  </NavigationContainer>
+  );
 }

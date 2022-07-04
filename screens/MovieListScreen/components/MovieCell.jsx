@@ -8,7 +8,7 @@ export const MovieCell = ({ movieItem }) => {
   // demo in the spec, to figure out what this should look like.
   return (
     <View>
-      <Text>Placeholder</Text>
+      <Text>{movieItem.title}</Text>
     </View>
   );
 };
